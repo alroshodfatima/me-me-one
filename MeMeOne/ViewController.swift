@@ -15,9 +15,9 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var toolBar: UIToolbar!
-    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var memeNavigator: UINavigationBar!
+    @IBOutlet weak var shareActionButton: UIBarButtonItem!
     
     // MARK: override functions
     override func viewWillAppear(_ animated: Bool) {
@@ -27,48 +27,37 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
         
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         
-        topTextField.delegate = self
-        bottomTextField.delegate = self
-        
-
-        topTextField.backgroundColor = .clear
-        topTextField.borderStyle = .none
-        
-        bottomTextField.backgroundColor = .clear
-        bottomTextField.borderStyle = .none
-        
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        
-        let memeTextAttributes: [NSAttributedString.Key: Any] = [
-            NSAttributedString.Key.strokeColor: UIColor.black,
-            NSAttributedString.Key.foregroundColor: UIColor.white,
-            NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
-            NSAttributedString.Key.strokeWidth:  -2,
-            NSAttributedString.Key.paragraphStyle: paragraphStyle
-        ]
-        
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        
-        shareButton.isEnabled = false
         cancelButton.isEnabled = false
+        shareActionButton.isEnabled = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        topTextField.text = "TOP" // MUST IN viewDidLoad
-        bottomTextField.text = "BOTTOM" // MUST IN viewDidLoad
-        
-        topTextField.textAlignment = NSTextAlignment.center // MUST IN viewDidLoad
-        bottomTextField.textAlignment = NSTextAlignment.center // MUST IN viewDidLoad
-    }
+        configureTextField(topTextField, text: "TOP")
+        configureTextField(bottomTextField, text: "BOTTOM")
+      }
     
     override func viewWillDisappear(_ animated: Bool) {
 
         super.viewWillDisappear(animated)
         unsubscribeFromKeyboardNotifications()
+    }
+    
+    // MARK: function to configure text fields properties and style
+    func configureTextField(_ textField: UITextField, text: String) {
+            textField.text = text
+            textField.delegate = self
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.alignment = .center
+            textField.defaultTextAttributes = [
+                .font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
+                .foregroundColor: UIColor.white,
+                .strokeColor: UIColor.black,
+                .strokeWidth: -2,
+                .backgroundColor: UIColor.clear,
+                .paragraphStyle: paragraphStyle
+            ]
     }
     
     // MARK: meme Struct
@@ -106,10 +95,18 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
     
     // MARK: functions for image and image picker
     @IBAction func pickAnImageFromAlbum(_ sender: Any) {
-        let pickerController = UIImagePickerController()
-        pickerController.delegate = self
-        pickerController.sourceType = .photoLibrary
-        present(pickerController, animated: true, completion: nil)
+        pickAnImage(.photoLibrary)
+    }
+    
+    @IBAction func pickAnImageFromCamera(_ sender: Any) {
+        pickAnImage(.camera)
+    }
+    
+    func pickAnImage(_ source: UIImagePickerController.SourceType) {
+            let pickerController = UIImagePickerController()
+            pickerController.delegate = self
+            pickerController.sourceType = source
+            present(pickerController, animated: true, completion: nil)
     }
     
     func imagePickerController(_ picker: UIImagePickerController,
@@ -118,21 +115,13 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
             imagePickerView.image = image
         }
         dismiss(animated: true, completion: {
-            self.shareButton.isEnabled = true
+            self.shareActionButton.isEnabled = true
             self.cancelButton.isEnabled = true
         })
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController){
         dismiss(animated: true, completion: nil)
-    }
-    
-    @IBAction func pickAnImageFromCamera(_ sender: Any) {
-        
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .camera
-        present(imagePicker, animated: true, completion: nil)
     }
     
     // MARK: text field delegate methods
@@ -209,7 +198,7 @@ class ViewController: UIViewController , UIImagePickerControllerDelegate, UINavi
         topTextField.text = "TOP"
         bottomTextField.text = "BOTTOM"
         imagePickerView.image = nil
-        shareButton.isEnabled = false
+        shareActionButton.isEnabled = false
         cancelButton.isEnabled = false
     }
     

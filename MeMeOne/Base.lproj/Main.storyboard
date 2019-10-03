@@ -37,13 +37,13 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GlE-f7-Emq">
-                                <rect key="frame" x="48" y="108" width="323" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GlE-f7-Emq">
+                                <rect key="frame" x="48" y="108" width="323" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wtn-5l-gv1">
-                                <rect key="frame" x="48" y="759" width="323" height="34"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wtn-5l-gv1">
+                                <rect key="frame" x="48" y="776" width="323" height="17"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="allCharacters"/>
                             </textField>
@@ -54,19 +54,10 @@
                                 </constraints>
                                 <items>
                                     <navigationItem id="Pcp-9k-wHf">
-                                        <barButtonItem key="leftBarButtonItem" style="plain" id="dHQ-gI-j2G">
-                                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="xc2-OW-VdT">
-                                                <rect key="frame" x="20" y="7" width="40" height="30"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="AVm-c9-MDk"/>
-                                                    <constraint firstAttribute="width" constant="40" id="BjJ-6G-dDk"/>
-                                                </constraints>
-                                                <state key="normal" title="Share"/>
-                                                <connections>
-                                                    <action selector="shareMeMe:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bkc-Vw-oCp"/>
-                                                </connections>
-                                            </button>
+                                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="action" id="dHQ-gI-j2G">
+                                            <connections>
+                                                <action selector="shareMeMe:" destination="BYZ-38-t0r" id="v7q-Sb-WQA"/>
+                                            </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" style="plain" id="yVm-CN-H23">
                                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="hPw-RH-hmf">
@@ -109,7 +100,7 @@
                         <outlet property="cancelButton" destination="hPw-RH-hmf" id="5ck-zr-BsM"/>
                         <outlet property="imagePickerView" destination="Q9M-nf-NME" id="dgG-TT-iYQ"/>
                         <outlet property="memeNavigator" destination="70e-RR-h8Y" id="jyk-BW-L2f"/>
-                        <outlet property="shareButton" destination="xc2-OW-VdT" id="cze-m6-3lA"/>
+                        <outlet property="shareActionButton" destination="dHQ-gI-j2G" id="Wum-GY-YAZ"/>
                         <outlet property="toolBar" destination="MMk-Qe-b5T" id="KEV-DW-nAg"/>
                         <outlet property="topTextField" destination="GlE-f7-Emq" id="bKy-08-9Yv"/>
                     </connections>
